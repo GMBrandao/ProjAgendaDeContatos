@@ -1,36 +1,74 @@
-﻿using ProjAgendaDeContatos;
+﻿using System.Runtime.InteropServices;
+using ProjAgendaDeContatos;
 List<Contacts> phonebook = new List<Contacts>();
 
+string op;
 
-Contacts contact = new("Jose", "987654321", "mail@example.com");
-contact.Address.EditStreet("Rua Nove de Julho, 2100");
-contact.Address.EditPostalCode("13562-458");
-contact.Address.EditState("São Paulo");
-contact.Address.EditCity("Bueno de Andrada");
-contact.Address.EditCountry("Brasil");
+do{
+    Console.Clear();
+    op = Menu();
+    switch (op)
+    {
+        case "1":
+            phonebook.Add(CreateContact());
+            break;
+        case "2":
+            phonebook.
 
+            break;
+        case "3":
+            phonebook.Remove(DeleteContact());
+            break;
+        case "4":
+            PrintPhoneBook(phonebook);
+            break;
+        case "5":
+            System.Environment.Exit(0);
+            break;
+        default:
+            Console.WriteLine("Opção Inválida!");
+            break;
+    }
 
-Contacts contact2 = new("Pedro", "987654321", "mail@example.com");
-contact2.Address.EditStreet("Rua 7 de Setembro, 333");
-contact2.Address.EditPostalCode("12665-481");
-contact2.Address.EditState("Pará");
-contact2.Address.EditCity("Belém");
-contact2.Address.EditCountry("Brasil");
+} while (true) ;
 
-Contacts contact3 = new("Joaquim", "549842154");
+Contacts DeleteContact()
+{
+    Console.WriteLine("Infomre o nome que deseja remover?");
+    string n = Console.ReadLine();
+    foreach(var item in phonebook)
+    {
+        if(item.Name.Equals(n))
+        {
+            return item;
+        }
+    }
+    return null;
+}
 
-phonebook.Add(contact);
-phonebook.Add(contact2);
-phonebook.Add(contact3);
-PrintPhoneBook(phonebook);
-
-phonebook.Remove(contact2);
-PrintPhoneBook(phonebook);
+Contacts CreateContact()
+{
+    Console.WriteLine("Informe o nome: ");
+    string n = Console.ReadLine();
+    Console.WriteLine("Informe o telefone: ");
+    var t = Console.ReadLine();
+    Contacts contact = new(n, t);
+    return contact;
+}
 
 void PrintPhoneBook(List<Contacts> l)
 {
     foreach(var item in l)
     {
         Console.WriteLine(item);
-    }    
+    }
+    Console.ReadLine();
+}
+
+string Menu()
+{
+    Console.WriteLine($">>>>> MENU DE OPÇÕES <<<<<\n1 - Inserir Contato\n2 - Editar Contato\n3 - Remover Contato\n4 - Mostrar agenda" +
+        $"\n5 - Sair\nEscolha uma opção:");
+
+    return Console.ReadLine();
 }
