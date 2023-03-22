@@ -13,7 +13,6 @@ do{
             phonebook.Add(CreateContact());
             break;
         case "2":
-            phonebook.
 
             break;
         case "3":
